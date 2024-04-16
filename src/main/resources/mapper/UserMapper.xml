@@ -1,9 +1,47 @@
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-
-<mapper namespace="com.openpms.server.mappers.UserMapper">
-    <select id="findById" parameterType="int" resultType="com.openpms.server.models.User">
-        select * from users where id = #{id};
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openpms.server.users.UserMapper">
+    <resultMap id="result" type="com.openpms.server.users.User">
+        <id column="id" property="id"/>
+        <result column="email" property="email"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="avatar" property="avatar"/>
+        <result column="status" property="status" jdbcType="TINYINT" javaType="BOOLEAN"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+    <insert id="create" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into `users`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            `email`, `password`,
+            <if test="name != null">`name`,</if>
+            <if test="avatar != null">`avatar`,</if>
+            <if test="status != null">`status`,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{email}, #{password},
+            <if test="name != null">#{name},</if>
+            <if test="avatar != null">#{avatar},</if>
+            <if test="status != null">#{status},</if>
+        </trim>
+    </insert>
+    <select id="findById" resultMap="result">
+        select * from `users` where `id` = #{id}
     </select>
+    <update id="updateById">
+        update `users`
+        <set>
+            <if test="email != null">`email` = #{email},</if>
+            <if test="password != null">`password` = #{password},</if>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="avatar != null">`avatar` = #{avatar},</if>
+            <if test="status != null">`status` = #{status,jdbcType=TINYINT},</if>
+        </set>
+        where `id` = #{id}
+    </update>
+    <delete id="deleteById">
+        delete from `users` where `id` = #{id}
+    </delete>
 </mapper>

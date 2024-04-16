@@ -1,6 +1,6 @@
 package com.openpms.server;
 
-import com.openpms.server.common.R;
+import com.openpms.common.R;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
