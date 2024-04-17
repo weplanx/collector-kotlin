@@ -1,6 +1,5 @@
 package com.openpms.server.users;
 
-import com.google.common.base.Preconditions;
 import com.openpms.server.users.dto.CreateParam;
 import com.openpms.server.users.dto.UpdateParam;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,6 @@ public class UsersService {
         User user = new User();
         user.setId(id);
         user.setEmail(param.getEmail());
-        user.setPassword(param.getPassword());
         user.setName(param.getName());
         user.setAvatar(param.getAvatar());
         user.setStatus(param.getStatus());

@@ -1,5 +1,6 @@
 package com.openpms.server.users.dto;
 
+import com.alibaba.fastjson2.annotation.JSONField;
 import com.openpms.server.users.User;
 
 import java.time.Instant;
@@ -27,10 +28,12 @@ public class GetResult {
         return user.getStatus();
     }
 
+    @JSONField(name = "create_time")
     public Instant getCreateTime() {
         return user.getCreateTime();
     }
 
+    @JSONField(name = "update_time")
     public Instant getUpdateTime() {
         return user.getUpdateTime();
     }

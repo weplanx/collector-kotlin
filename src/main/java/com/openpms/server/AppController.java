@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class AppController {
     @GetMapping
-    public R index() {
-        return new R(0, "no error");
+    public R<?> index() {
+        return new R<>(0, "no error");
     }
 }

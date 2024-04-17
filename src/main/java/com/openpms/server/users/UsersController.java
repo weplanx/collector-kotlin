@@ -1,6 +1,5 @@
 package com.openpms.server.users;
 
-import com.google.common.base.Preconditions;
 import com.openpms.common.R;
 import com.openpms.server.users.dto.CreateParam;
 import com.openpms.server.users.dto.GetResult;
