@@ -7,7 +7,8 @@
         <result column="password" property="password"/>
         <result column="name" property="name"/>
         <result column="avatar" property="avatar"/>
-        <result column="status" property="status" jdbcType="TINYINT" javaType="BOOLEAN"/>
+        <result column="status" property="status"/>
+        <result column="del" property="del"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
@@ -37,11 +38,14 @@
             <if test="password != null">`password` = #{password},</if>
             <if test="name != null">`name` = #{name},</if>
             <if test="avatar != null">`avatar` = #{avatar},</if>
-            <if test="status != null">`status` = #{status,jdbcType=TINYINT},</if>
+            <if test="status != null">`status` = #{status},</if>
         </set>
         where `id` = #{id}
     </update>
     <delete id="deleteById">
-        delete from `users` where `id` = #{id}
+        <!-- delete from `users` where `id` = #{id}-->
+        update `users`
+        set `del` = UNIX_TIMESTAMP()
+        where `id` = #{id}
     </delete>
 </mapper>

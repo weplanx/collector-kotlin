@@ -11,7 +11,8 @@ public class User {
     private String password;
     private String name;
     private String avatar;
-    private Boolean status;
+    private int status;
+    private int del;
     private Instant createTime;
     private Instant updateTime;
 }

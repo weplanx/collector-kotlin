@@ -24,7 +24,7 @@ public class GetResult {
         return user.getAvatar();
     }
 
-    public Boolean getStatus() {
+    public int getStatus() {
         return user.getStatus();
     }
 

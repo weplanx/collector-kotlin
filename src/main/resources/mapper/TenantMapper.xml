@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.openpms.server.tenants.TenantMapper">
+    <resultMap id="result" type="com.openpms.server.tenants.Tenant">
+        <id column="id" property="id"/>
+        <result column="kind" property="kind"/>
+        <result column="code" property="code"/>
+        <result column="name" property="name"/>
+        <result column="logo" property="logo"/>
+        <result column="cover" property="cover"/>
+        <result column="status" property="status"/>
+        <result column="sort" property="sort"/>
+        <result column="del" property="del"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+</mapper>

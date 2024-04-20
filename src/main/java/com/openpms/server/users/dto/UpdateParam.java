@@ -14,5 +14,5 @@ public class UpdateParam {
     private String email;
     private String name;
     private String avatar;
-    private Boolean status;
+    private int status;
 }
