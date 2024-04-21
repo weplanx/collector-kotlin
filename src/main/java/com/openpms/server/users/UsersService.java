@@ -4,7 +4,6 @@ import com.openpms.server.users.dto.CreateParam;
 import com.openpms.server.users.dto.UpdateParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -13,7 +12,7 @@ public class UsersService {
     private final UserMapper userMapper;
 
     public User findById(Long id) {
-        return userMapper.findById(id);
+        return userMapper.find(id);
     }
 
     public Long create(CreateParam param) {
@@ -33,10 +32,10 @@ public class UsersService {
         user.setName(param.getName());
         user.setAvatar(param.getAvatar());
         user.setStatus(param.getStatus());
-        return this.userMapper.updateById(user);
+        return this.userMapper.update(user);
     }
 
     public int deleteById(Long id) {
-        return this.userMapper.deleteById(id);
+        return this.userMapper.delete(id);
     }
 }

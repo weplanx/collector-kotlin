@@ -6,9 +6,9 @@ import org.apache.ibatis.annotations.Mapper;
 public interface UserMapper {
     Long create(User user);
 
-    User findById(Long id);
+    User find(Long id);
 
-    int updateById(User user);
+    int update(User user);
 
-    int deleteById(Long id);
+    int delete(Long id);
 }

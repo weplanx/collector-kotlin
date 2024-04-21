@@ -1,17 +1,131 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.openpms.server.tenants.TenantMapper">
-    <resultMap id="result" type="com.openpms.server.tenants.Tenant">
-        <id column="id" property="id"/>
+    <resultMap id="tenant" type="com.openpms.server.tenants.Tenant">
         <result column="kind" property="kind"/>
         <result column="code" property="code"/>
         <result column="name" property="name"/>
+        <result column="name_en" property="nameEn"/>
+        <result column="tel" property="tel"/>
         <result column="logo" property="logo"/>
-        <result column="cover" property="cover"/>
+        <result column="description" property="description"/>
+        <result column="address" property="address"/>
         <result column="status" property="status"/>
         <result column="sort" property="sort"/>
-        <result column="del" property="del"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
+    <resultMap id="tenant_info" extends="tenant" type="com.openpms.server.tenants.TenantInfo">
+        <result column="cover" property="cover"/>
+        <result column="fax" property="fax"/>
+        <result column="email" property="email"/>
+        <result column="album" property="album"/>
+        <result column="content" property="content"/>
+        <result column="location" property="location"/>
+    </resultMap>
+    <insert id="create" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
+        insert into `tenant`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            `kind`, `code`, `name`,
+            <if test="name_en != null">`name_en`,</if>
+            <if test="tel != null">`tel`,</if>
+            <if test="logo != null">`logo`,</if>
+            <if test="description != null">`description`,</if>
+            <if test="address != null">`address`,</if>
+            <if test="status != null">`status`,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{kind}, #{code}, #{name},
+            <if test="name_en != null">#{name_en},</if>
+            <if test="tel != null">#{tel},</if>
+            <if test="logo != null">#{logo},</if>
+            <if test="description != null">#{description},</if>
+            <if test="address != null">#{address},</if>
+            <if test="status != null">#{status},</if>
+        </trim>
+    </insert>
+    <insert id="createInfo">
+        insert into `tenant_info`
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            `tid`,
+            <if test="cover != null">`cover`,</if>
+            <if test="fax != null">`fax`,</if>
+            <if test="email != null">`email`,</if>
+            <if test="album != null">`album`,</if>
+            <if test="content != null">`content`,</if>
+            <if test="location != null">`location`,</if>
+        </trim>
+        values
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            #{id}`,
+            <if test="cover != null">#{cover},</if>
+            <if test="fax != null">#{fax},</if>
+            <if test="email != null">#{email},</if>
+            <if test="album != null">#{album},</if>
+            <if test="content != null">#{content},</if>
+            <if test="location != null">#{location},</if>
+        </trim>
+    </insert>
+    <select id="findMany" resultType="arraylist" resultMap="tenant">
+        select * from `tenant`
+    </select>
+    <select id="find" resultMap="tenant_info">
+        select
+        `tenant`.`id` as `id`,
+        `tenant`.`kind` as `kind`,
+        `tenant`.`code` as `code`,
+        `tenant`.`name` as `name`,
+        `tenant`.`name_en` as `name_en`,
+        `tenant`.`tel` as `tel`,
+        `tenant`.`logo` as `logo`,
+        `tenant`.`descripition` as `descripition`,
+        `tenant`.`address` as `address`,
+        `tenant_info`.`cover` as `cover`,
+        `tenant_info`.`fax` as `fax`,
+        `tenant_info`.`email` as `email`,
+        `tenant_info`.`album` as `album`,
+        `tenant_info`.`content` as `content`,
+        `tenant_info`.`location` as `location`,
+        `tenant`.`status` as `status`,
+        `tenant`.`create_time` as `create_time`,
+        `tenant`.`update_time` as `update_time`
+        from `tenant`
+        inner join `tenant_info`
+        on `tenant`.`id` = `tenant_info`.`tid`
+        where `id` = #{id}
+    </select>
+    <update id="update">
+        update `tenant`
+        <set>
+            <if test="kind != null">`kind` = #{kind},</if>
+            <if test="code != null">`code` = #{code},</if>
+            <if test="name != null">`name` = #{name},</if>
+            <if test="name_en != null">`name_en` = #{name_en},</if>
+            <if test="tel != null">`tel` = #{tel},</if>
+            <if test="logo != null">`logo` = #{logo},</if>
+            <if test="description != null">`description` = #{description},</if>
+            <if test="address != null">`address` = #{address},</if>
+            <if test="status != null">`status` = #{status},</if>
+        </set>
+        where `id` = #{id}
+    </update>
+    <update id="updateInfo">
+        update `tenant_info`
+        <set>
+            <if test="cover != null">`cover` = #{cover},</if>
+            <if test="fax != null">`fax` = #{fax},</if>
+            <if test="email != null">`email` = #{email},</if>
+            <if test="album != null">`album` = #{album},</if>
+            <if test="content != null">`content` = #{content},</if>
+            <if test="location != null">`location` = #{location},</if>
+        </set>
+        where `tid` = #{id}
+    </update>
+    <delete id="delete">
+        delete from `tenant` where `id` = #{id}
+    </delete>
+    <delete id="deleteInfo">
+        delete from `tenant_info` where `tid`= #{id}
+    </delete>
 </mapper>
