@@ -25,7 +25,7 @@ public class UsersService {
         return this.userMapper.create(user);
     }
 
-    public int updateById(Long id, UpdateParam param) {
+    public int update(Long id, UpdateParam param) {
         User user = new User();
         user.setId(id);
         user.setEmail(param.getEmail());
@@ -35,7 +35,7 @@ public class UsersService {
         return this.userMapper.update(user);
     }
 
-    public int deleteById(Long id) {
+    public int delete(Long id) {
         return this.userMapper.delete(id);
     }
 }

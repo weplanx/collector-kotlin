@@ -1,11 +1,11 @@
 package com.openpms.server.users;
 
-import com.openpms.common.R;
 import com.openpms.server.users.dto.CreateParam;
 import com.openpms.server.users.dto.GetResult;
 import com.openpms.server.users.dto.UpdateParam;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
@@ -20,20 +20,20 @@ public class UsersController {
     }
 
     @PostMapping("create")
-    public R<?> create(@Valid @RequestBody CreateParam param) {
+    public ResponseEntity<?> create(@Valid @RequestBody CreateParam param) {
         Long id = userService.create(param);
-        return new R<>(0, "ok");
+        return ResponseEntity.ok().build();
     }
 
     @PatchMapping("/{id}")
-    public R<?> updateById(@PathVariable("id") Long id, @RequestBody UpdateParam param) {
-        int count = userService.updateById(id, param);
-        return new R<>(0, "ok");
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody UpdateParam param) {
+        int count = userService.update(id, param);
+        return ResponseEntity.noContent().build();
     }
 
     @DeleteMapping("/{id}")
-    public R<?> deleteById(@PathVariable("id") Long id) {
-        int count = userService.deleteById(id);
-        return new R<>(0, "ok");
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        int count = userService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }
