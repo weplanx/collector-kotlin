@@ -1,9 +1,9 @@
 package com.openpms.server.users;
 
+import cn.dev33.satoken.secure.BCrypt;
 import com.openpms.server.users.dto.CreateParam;
 import com.openpms.server.users.dto.UpdateParam;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.crypto.argon2.Argon2PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
@@ -18,8 +18,7 @@ public class UsersService {
     public Long create(CreateParam param) {
         User user = new User();
         user.setEmail(param.getEmail());
-        Argon2PasswordEncoder encoder = Argon2PasswordEncoder.defaultsForSpringSecurity_v5_8();
-        user.setPassword(encoder.encode(param.getPassword()));
+        user.setPassword(BCrypt.hashpw(param.getPassword()));
         user.setName(param.getName());
         user.setAvatar(param.getAvatar());
         return this.userMapper.create(user);

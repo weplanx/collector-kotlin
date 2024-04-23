@@ -8,6 +8,8 @@ public interface UserMapper {
 
     User find(Long id);
 
+    User findByEmail(String email);
+
     int update(User user);
 
     int delete(Long id);

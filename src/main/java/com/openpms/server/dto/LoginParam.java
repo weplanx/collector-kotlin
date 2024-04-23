@@ -1,4 +1,4 @@
-package com.openpms.server.users.dto;
+package com.openpms.server.dto;
 
 import com.alibaba.fastjson2.annotation.JSONField;
 import com.alibaba.fastjson2.annotation.JSONType;
@@ -9,12 +9,9 @@ import lombok.Data;
         {
             "required": ["email", "password"]
         }""")
-public class CreateParam {
+public class LoginParam {
     @JSONField(schema = "{'format':'email'}")
     private String email;
     @JSONField(schema = "{'minLength': '8'}")
     private String password;
-    private String name;
-    private String avatar;
-    private Boolean status = true;
 }

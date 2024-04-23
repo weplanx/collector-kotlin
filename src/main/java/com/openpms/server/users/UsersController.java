@@ -1,5 +1,6 @@
 package com.openpms.server.users;
 
+import cn.dev33.satoken.annotation.SaCheckLogin;
 import com.openpms.server.users.dto.CreateParam;
 import com.openpms.server.users.dto.GetResult;
 import com.openpms.server.users.dto.UpdateParam;
@@ -8,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+@SaCheckLogin
 @RequiredArgsConstructor
 @RestController
 @RequestMapping("users")
