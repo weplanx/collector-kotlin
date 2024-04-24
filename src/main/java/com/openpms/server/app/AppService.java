@@ -1,10 +1,10 @@
 package com.openpms.server.app;
 
-import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.StpUtil;
-import com.openpms.server.app.dto.LoginParam;
-import com.openpms.server.users.User;
-import com.openpms.server.users.UserMapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.openpms.server.app.dto.LoginBody;
+import com.openpms.server.user.User;
+import com.openpms.server.user.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,15 +14,18 @@ import org.springframework.stereotype.Service;
 public class AppService {
     private final UserMapper userMapper;
 
-    public Boolean login(LoginParam param) {
-        User user = userMapper.findByEmail(param.getEmail());
+    public Boolean login(LoginBody body) {
+        QueryWrapper<User> query = new QueryWrapper<>();
+        query.eq("email", body.getEmail())
+            .eq("status", 1);
+        User user = userMapper.selectOne(query);
         if (user == null) {
             return false;
         }
-        if (!BCrypt.checkpw(param.getPassword(), user.getPassword())) {
+        if (!user.checkPassword(body.getPassword())) {
             return false;
         }
-        StpUtil.login(param.getEmail(), param.getRemember());
+        StpUtil.login(body.getEmail(), false);
         return true;
     }
 }

@@ -6,13 +6,13 @@ import lombok.Data;
 
 @Data
 @JSONType(schema = """
-        {
-            "required": ["email", "password", "remember"]
-        }""")
-public class LoginParam {
+    {
+        "required": ["email", "password"]
+    }"""
+)
+public class LoginBody {
     @JSONField(schema = "{'format':'email'}")
     private String email;
     @JSONField(schema = "{'minLength': '8'}")
     private String password;
-    private Boolean remember = false;
 }

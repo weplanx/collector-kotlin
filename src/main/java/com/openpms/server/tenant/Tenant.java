@@ -1,11 +1,12 @@
-package com.openpms.server.tenants;
+package com.openpms.server.tenant;
 
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
-import java.awt.*;
 import java.time.Instant;
 
 @Data
+@TableName("`tenant`")
 public class Tenant {
     private Long id;
     private int kind;

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.openpms.server.users.UserMapper">
-    <resultMap id="user" type="com.openpms.server.users.User">
+<mapper namespace="com.openpms.server.user.UserMapper">
+    <resultMap id="user" type="com.openpms.server.user.User">
         <id column="id" property="id"/>
         <result column="email" property="email"/>
         <result column="password" property="password"/>
@@ -11,40 +11,4 @@
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
-    <insert id="create" keyColumn="id" keyProperty="id" useGeneratedKeys="true">
-        insert into `user`
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            `email`, `password`,
-            <if test="name != null">`name`,</if>
-            <if test="avatar != null">`avatar`,</if>
-            <if test="status != null">`status`,</if>
-        </trim>
-        values
-        <trim prefix="(" suffix=")" suffixOverrides=",">
-            #{email}, #{password},
-            <if test="name != null">#{name},</if>
-            <if test="avatar != null">#{avatar},</if>
-            <if test="status != null">#{status},</if>
-        </trim>
-    </insert>
-    <select id="find" resultMap="user">
-        select * from `user` where `id` = #{id}
-    </select>
-    <select id="findByEmail" resultMap="user">
-        select * from `user` where `email` = #{email}
-    </select>
-    <update id="update">
-        update `user`
-        <set>
-            <if test="email != null">`email` = #{email},</if>
-            <if test="password != null">`password` = #{password},</if>
-            <if test="name != null">`name` = #{name},</if>
-            <if test="avatar != null">`avatar` = #{avatar},</if>
-            <if test="status != null">`status` = #{status},</if>
-        </set>
-        where `id` = #{id}
-    </update>
-    <delete id="delete">
-        delete from `user` where `id` = #{id}
-    </delete>
 </mapper>

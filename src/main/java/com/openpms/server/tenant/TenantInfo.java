@@ -1,4 +1,4 @@
-package com.openpms.server.tenants;
+package com.openpms.server.tenant;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;

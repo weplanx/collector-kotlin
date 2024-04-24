@@ -1,9 +1,10 @@
 package com.openpms.server.app;
 
-import cn.dev33.satoken.util.SaResult;
-import com.openpms.server.app.dto.LoginParam;
+import com.openpms.common.R;
+import com.openpms.server.app.dto.LoginBody;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,11 +26,11 @@ public class AppController {
     }
 
     @PostMapping("/login")
-    public SaResult login(@RequestBody LoginParam param) {
-        Boolean result = appService.login(param);
+    public ResponseEntity<?> login(@RequestBody LoginBody body) {
+        Boolean result = appService.login(body);
         if (!result) {
-            return SaResult.error("登录失败");
+            return R.WithStatus(0, "登录失败，账户密码不正确或已被禁用", 401);
         }
-        return SaResult.ok();
+        return R.Ok("登录成功");
     }
 }

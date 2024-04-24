@@ -1,7 +1,7 @@
-package com.openpms.server.users.dto;
+package com.openpms.server.user.dto;
 
 import com.alibaba.fastjson2.annotation.JSONField;
-import com.openpms.server.users.User;
+import com.openpms.server.user.User;
 
 import java.time.Instant;
 
