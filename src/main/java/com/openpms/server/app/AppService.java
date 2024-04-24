@@ -1,8 +1,8 @@
-package com.openpms.server;
+package com.openpms.server.app;
 
 import cn.dev33.satoken.secure.BCrypt;
 import cn.dev33.satoken.stp.StpUtil;
-import com.openpms.server.dto.LoginParam;
+import com.openpms.server.app.dto.LoginParam;
 import com.openpms.server.users.User;
 import com.openpms.server.users.UserMapper;
 import lombok.RequiredArgsConstructor;
@@ -22,7 +22,7 @@ public class AppService {
         if (!BCrypt.checkpw(param.getPassword(), user.getPassword())) {
             return false;
         }
-        StpUtil.login(param.getEmail());
+        StpUtil.login(param.getEmail(), param.getRemember());
         return true;
     }
 }

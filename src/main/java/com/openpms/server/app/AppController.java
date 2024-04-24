@@ -1,13 +1,9 @@
-package com.openpms.server;
+package com.openpms.server.app;
 
-import cn.dev33.satoken.stp.StpUtil;
 import cn.dev33.satoken.util.SaResult;
-import com.openpms.server.dto.LoginParam;
-import com.openpms.server.users.User;
-import com.openpms.server.users.UsersService;
+import com.openpms.server.app.dto.LoginParam;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

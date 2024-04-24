@@ -1,5 +1,10 @@
 package com.openpms.server;
 
+import cn.dev33.satoken.context.SaHolder;
+import cn.dev33.satoken.filter.SaServletFilter;
+import cn.dev33.satoken.router.SaRouter;
+import cn.dev33.satoken.stp.StpUtil;
+import cn.dev33.satoken.util.SaResult;
 import com.alibaba.fastjson2.JSONReader;
 import com.alibaba.fastjson2.JSONWriter;
 import com.alibaba.fastjson2.support.config.FastJsonConfig;
@@ -17,6 +22,22 @@ import java.util.Collections;
 
 @Configuration
 public class ServerConfiguration {
+    @Bean
+    public SaServletFilter getSaServletFilter() {
+        return new SaServletFilter()
+                .addInclude("/**")
+                .addExclude("/favicon.ico")
+                .setAuth(obj -> SaRouter.match("/**", "/login", StpUtil::checkLogin))
+                .setError(e -> SaResult.error(e.getMessage()))
+                .setBeforeAuth(r -> SaHolder
+                        .getResponse()
+                        .setServer("pms")
+                        .setHeader("X-Frame-Options", "SAMEORIGIN")
+                        .setHeader("X-XSS-Protection", "1; mode=block")
+                        .setHeader("X-Content-Type-Options", "nosniff")
+                );
+    }
+
     @Bean
     public HttpMessageConverters fastJsonConverters() {
         FastJsonHttpMessageConverter converter = new FastJsonHttpMessageConverter();
