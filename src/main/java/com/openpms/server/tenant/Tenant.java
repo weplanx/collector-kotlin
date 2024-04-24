@@ -9,7 +9,7 @@ import java.time.Instant;
 @TableName("`tenant`")
 public class Tenant {
     private Long id;
-    private int kind;
+    protected int kind;
     private String code;
     private String name;
     private String nameEn;
@@ -17,7 +17,7 @@ public class Tenant {
     private String logo;
     private String description;
     private String address;
-    private int status;
+    protected int status;
     private int sort;
     private Instant createTime;
     private Instant updateTime;

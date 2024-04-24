@@ -4,6 +4,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.openpms.common.R;
+import com.openpms.server.tenant.dto.CreateBody;
+import com.openpms.server.tenant.dto.UpdateBody;
 import jakarta.validation.constraints.Min;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -37,5 +39,24 @@ public class TenantController {
             return R.Fail(0, "数据不存在");
         }
         return ResponseEntity.ok(tenant);
+    }
+
+    @PostMapping("create")
+    public ResponseEntity<?> create(@RequestBody CreateBody body) {
+        tenantService.save(body);
+        return R.Ok();
+    }
+
+    @PatchMapping("/{id}")
+    public ResponseEntity<?> update(@PathVariable("id") Long id, @RequestBody UpdateBody body) {
+        body.setId(id);
+        tenantService.updateById(body);
+        return R.Ok();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> delete(@PathVariable("id") Long id) {
+        tenantService.removeById(id);
+        return R.Ok();
     }
 }

@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 @JSONType(schema = """
-        {
-            "minProperties": 1
-        }""")
+    {
+        "minProperties": 1
+    }""")
 public class UpdateBody {
     @JSONField(schema = "{'format':'email'}")
     private String email;

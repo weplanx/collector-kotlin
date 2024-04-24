@@ -1,5 +1,6 @@
 package com.openpms.server.app;
 
+import cn.dev33.satoken.stp.StpUtil;
 import com.openpms.common.R;
 import com.openpms.server.app.dto.LoginBody;
 import jakarta.servlet.http.HttpSession;
@@ -32,5 +33,11 @@ public class AppController {
             return R.WithStatus(0, "登录失败，账户密码不正确或已被禁用", 401);
         }
         return R.Ok("登录成功");
+    }
+
+    @PostMapping("/logout")
+    public ResponseEntity<?> logout() {
+        StpUtil.logout();
+        return R.Ok("登出");
     }
 }

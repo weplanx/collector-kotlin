@@ -6,9 +6,9 @@ import lombok.Data;
 
 @Data
 @JSONType(schema = """
-        {
-            "required": ["email", "password"]
-        }""")
+    {
+        "required": ["email", "password"]
+    }""")
 public class CreateBody {
     @JSONField(schema = "{'format':'email'}")
     private String email;
@@ -16,5 +16,5 @@ public class CreateBody {
     private String password;
     private String name;
     private String avatar;
-    private Boolean status = true;
+    private int status = 1;
 }
