@@ -29,22 +29,22 @@ public class ServerConfiguration {
     @Bean
     public SaServletFilter getSaServletFilter() {
         return new SaServletFilter()
-                .addInclude("/**")
-                .addExclude("/favicon.ico")
-                .setAuth(obj -> SaRouter.match("/**", "/login", StpUtil::checkLogin))
-                .setError(e -> {
-                    SaHolder.getResponse()
-                            .setHeader("Content-Type", "application/json;charset=UTF-8")
-                            .setStatus(401);
-                    return JSON.toJSONString(new R(0, e.getMessage()));
-                })
-                .setBeforeAuth(r -> SaHolder
-                        .getResponse()
-                        .setServer("pms")
-                        .setHeader("X-Frame-Options", "SAMEORIGIN")
-                        .setHeader("X-XSS-Protection", "1; mode=block")
-                        .setHeader("X-Content-Type-Options", "nosniff")
-                );
+            .addInclude("/**")
+            .addExclude("/favicon.ico")
+            .setAuth(obj -> SaRouter.match("/**", "/login", StpUtil::checkLogin))
+            .setError(e -> {
+                SaHolder.getResponse()
+                    .setHeader("Content-Type", "application/json;charset=UTF-8")
+                    .setStatus(401);
+                return JSON.toJSONString(new R(0, e.getMessage()));
+            })
+            .setBeforeAuth(r -> SaHolder
+                .getResponse()
+                .setServer("pms")
+                .setHeader("X-Frame-Options", "SAMEORIGIN")
+                .setHeader("X-XSS-Protection", "1; mode=block")
+                .setHeader("X-Content-Type-Options", "nosniff")
+            );
     }
 
     @Bean

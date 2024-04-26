@@ -1,5 +1,6 @@
 package com.openpms.server.app;
 
+import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import com.openpms.common.R;
 import com.openpms.server.app.dto.LoginBody;
@@ -32,7 +33,8 @@ public class AppController {
         if (!result) {
             return R.WithStatus(0, "登录失败，账户密码不正确或已被禁用", 401);
         }
-        return R.Ok("登录成功");
+        SaTokenInfo tokenInfo = StpUtil.getTokenInfo();
+        return ResponseEntity.ok(tokenInfo);
     }
 
     @PostMapping("/logout")
