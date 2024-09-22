@@ -1,4 +1,4 @@
-package org.weplanx
+package com.weplanx
 
 fun main() {
 }
